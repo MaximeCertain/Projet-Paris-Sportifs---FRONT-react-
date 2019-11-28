@@ -9,17 +9,7 @@ class Home extends Component {
         //base de donnée interne
         this.state = {
             title: "Blog HITEMA",
-            posts: [
-                {
-                    id: 1,
-                    title: "mon titre22",
-                    content: "mon contenu"
-                },
-                {
-                    id: 2,
-                    title: "mon titre4",
-                    content: "mon contenu"
-                }
+            posts :[
             ]
         }
     }
@@ -30,8 +20,8 @@ class Home extends Component {
 
     async deletePost(id) {
         let response = await PostService.delete(id);
-        if(response.ok){
-            let posts= this.state.posts;
+        if (response.ok) {
+            let posts = this.state.posts;
             let index = posts.findIndex(post => post.id === id);
             posts.splice(index, 1);
             this.setState({posts: posts});
@@ -40,7 +30,6 @@ class Home extends Component {
 
     onClickButton() {
         console.log("je clique");
-
     }
 
     async componentDidMount() {
@@ -72,6 +61,7 @@ class Home extends Component {
                     </thead>
                     <tbody>
                     {
+                        this.state.posts.length !== 0 ?
                         this.state.posts.map((item, index) => {
                             return (<Post key={index} data={item} deletePost={(id) => this.deletePost(id)}/> /*
                                 <tr key={index}><td>{item.id}</td>
@@ -82,8 +72,9 @@ class Home extends Component {
                                 </tr>*/
                             )
                         })
-                    }
-                    </tbody>
+                            :
+                            <h1>il n'y a aucun post</h1>
+                    }</tbody>
                 </table>
                 <h2>2eme titre </h2>
                 <h3> 3eme titre</h3>

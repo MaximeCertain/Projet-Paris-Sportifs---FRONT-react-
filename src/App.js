@@ -5,14 +5,19 @@ import logo from './logo.svg';
 import './App.css';
 import Home from "./pages/Home";
 import DetailsPost from "./pages/DetailsPost";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import AddPost from "./pages/addPost";
 
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
+                <Header />
                 <Route path="/" exact component = {Home}/>
                 <Route path="/posts/:id" exact component = {DetailsPost}/>
-
+                <Route path="/ajouter-un-post" exact component = {AddPost}/>
+                <Footer />
             </BrowserRouter>
         );
     }
