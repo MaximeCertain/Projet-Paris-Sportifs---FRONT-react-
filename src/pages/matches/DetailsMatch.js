@@ -1,48 +1,69 @@
 import React, {Component} from 'react';
-import MatchService from "../../services/matches.service";
 import {Link} from "react-router-dom";
-import Match from "../../components/match/Match";
+import Match from "../../components/matches/Match";
+import FormMatch from "../../components/matches/FormMatch";
+import ListCotesForMatch from "../../components/cotes/ListCotesForMatch";
+import AddCoteForMatch from "../../components/cotes/AddCoteForMatch";
+import PostService from "../../services/posts.service";
+import MatchesService from "../../services/matches.service";
 
 class DetailsMatch extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: "",
-            title: "",
-            content: "",
+            matchs: {}
         }
+    }
+    componentWillMount() {
+        console.log("will");
     }
 
     async componentDidMount() {
         let id = this.props.match.params.id;
-        let response = await MatchService.details(id);
+        let response = await MatchesService.details(id);
         if (response.ok) {
             //La réponse est de type 200
             let data = await response.json();
-            console.log(data);
             this.setState({
-                id: data.id,
-                title: data.title,
-                content: data.body
+                matchs: data.matchs,
             });
+            console.log(data.matchs);
         }
     }
 
-    async deletePost(id){
+/*
+    async deletePost(id) {
         let response = await MatchService.delete(id);
         console.log("Here");
-        if(response.ok){
+        if (response.ok) {
             this.props.history.push("/");
         }
     }
-
+*/
     render() {
         return (
-            <h1>Hello</h1>
+            <section className="content">
+                <div className="row">
+                    <div className="col-md-6">
+
+                        <FormMatch data={this.state.matchs}/>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <ListCotesForMatch data={this.state.matchs}/>
+                            </div>
+                            <div className="col-md-12">
+                                <AddCoteForMatch data={this.state.matchs}/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         );
     }
 }
 
 export default DetailsMatch;
 
-//this.props.match.params.monparam
+//this.props.matches.params.monparam

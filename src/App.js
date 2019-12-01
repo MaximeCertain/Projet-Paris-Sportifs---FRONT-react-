@@ -8,16 +8,31 @@ import DetailsPost from "./pages/DetailsPost";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AddPost from "./pages/addPost";
+import Burger from "./components/Burger";
+import ListMatches from "./pages/matches/ListMatches";
+import DetailsMatch from "./pages/matches/DetailsMatch";
+import ListUsers from "./pages/users/ListUsers";
+import FormUser from "./components/users/FormUser";
+import UpdateUser from "./components/users/UpdateUser";
 
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Header />
-                <Route path="/" exact component = {Home}/>
-                <Route path="/posts/:id" exact component = {DetailsPost}/>
-                <Route path="/ajouter-un-post" exact component = {AddPost}/>
-                <Footer />
+                <Header/>
+                <Burger/>
+                <div className="content-wrapper" style={{minHeight: 216}}>
+                    <Route path="/matches" exact component={ListMatches}/>
+                    <Route path="/matches/:id" exact component={DetailsMatch}/>
+                    <Route path="/users" exact component={ListUsers}/>
+                    <Route path="/add-user" exact component={FormUser}/>
+                    <Route path="/update-user/:id" exact component={UpdateUser}/>
+
+                    <Route path="/" exact component={Home}/>
+                    <Route path="/posts/:id" exact component={DetailsPost}/>
+                    <Route path="/ajouter-un-post" exact component={AddPost}/>
+                </div>
+                <Footer/>
             </BrowserRouter>
         );
     }

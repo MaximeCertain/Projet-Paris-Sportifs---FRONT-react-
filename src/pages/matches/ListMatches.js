@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PostService from "../../services/posts.service";
 import MatchesService from "../../services/matches.service";
 import Post from "../../components/Post";
-import Match from "../../components/match/Match";
+import Match from "../../components/matches/Match";
 
 class ListMatches extends Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class ListMatches extends Component {
         }
     }
 
+
     componentWillMount() {
         console.log("will");
     }
@@ -24,7 +25,6 @@ class ListMatches extends Component {
     }
 
     async componentDidMount() {
-        console.log("did");
         let response = await MatchesService.list();
         if (response.ok) {
             //La réponse est de type 200

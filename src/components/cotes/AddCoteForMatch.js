@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-class ListCotesForMatch extends Component {
+class AddCoteForMatch extends Component {
     constructor(props) {
         super(props);
     }
@@ -12,76 +12,36 @@ class ListCotesForMatch extends Component {
 
     render() {
         return (
-            <div className="card card-info">
-                <div className="card-header">
-                    <h3 className="card-title">Files</h3>
-                    <div className="card-tools">
-                        <button type="button" className="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i className="fas fa-minus" /></button>
-                    </div>
-                </div>
-                <div className="card-body p-0" style={{display: 'block'}}>
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <th>File Name</th>
-                            <th>File Size</th>
-                            <th />
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Functional-requirements.docx</td>
-                            <td>49.8005 kb</td>
-                            <td className="text-right py-0 align-middle">
-                                <div className="btn-group btn-group-sm">
-                                    <a href="#" className="btn btn-info"><i className="fas fa-eye" /></a>
-                                    <a href="#" className="btn btn-danger"><i className="fas fa-trash" /></a>
-                                </div>
-                            </td>
-                        </tr><tr>
-                            <td>UAT.pdf</td>
-                            <td>28.4883 kb</td>
-                            <td className="text-right py-0 align-middle">
-                                <div className="btn-group btn-group-sm">
-                                    <a href="#" className="btn btn-info"><i className="fas fa-eye" /></a>
-                                    <a href="#" className="btn btn-danger"><i className="fas fa-trash" /></a>
-                                </div>
-                            </td>
-                        </tr><tr>
-                            <td>Email-from-flatbal.mln</td>
-                            <td>57.9003 kb</td>
-                            <td className="text-right py-0 align-middle">
-                                <div className="btn-group btn-group-sm">
-                                    <a href="#" className="btn btn-info"><i className="fas fa-eye" /></a>
-                                    <a href="#" className="btn btn-danger"><i className="fas fa-trash" /></a>
-                                </div>
-                            </td>
-                        </tr><tr>
-                            <td>Logo.png</td>
-                            <td>50.5190 kb</td>
-                            <td className="text-right py-0 align-middle">
-                                <div className="btn-group btn-group-sm">
-                                    <a href="#" className="btn btn-info"><i className="fas fa-eye" /></a>
-                                    <a href="#" className="btn btn-danger"><i className="fas fa-trash" /></a>
-                                </div>
-                            </td>
-                        </tr><tr>
-                            <td>Contract-10_12_2014.docx</td>
-                            <td>44.9715 kb</td>
-                            <td className="text-right py-0 align-middle">
-                                <div className="btn-group btn-group-sm">
-                                    <a href="#" className="btn btn-info"><i className="fas fa-eye" /></a>
-                                    <a href="#" className="btn btn-danger"><i className="fas fa-trash" /></a>
-                                </div>
-                            </td>
-                        </tr></tbody>
-                    </table>
-                </div>
-                {/* /.card-body */}
+                    <div className="card card-secondary">
+            <div className="card-header">
+            <h3 className="card-title">Budget</h3>
+        <div className="card-tools">
+            <button type="button" className="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+                <i className="fas fa-minus"/></button>
+        </div>
+        </div>
+        <div className="card-body" style={{display: 'block'}}>
+            <div className="form-group">
+                <label htmlFor="inputEstimatedBudget">Estimated budget</label>
+                <input type="number" id="inputEstimatedBudget" className="form-control" defaultValue={2300}
+                       step={1}/>
             </div>
+            <div className="form-group">
+                <label htmlFor="inputSpentBudget">Total amount spent</label>
+                <input type="number" id="inputSpentBudget" className="form-control" defaultValue={2000}
+                       step={1}/>
+            </div>
+            <div className="form-group">
+                <label htmlFor="inputEstimatedDuration">Estimated project duration</label>
+                <input type="number" id="inputEstimatedDuration" className="form-control" defaultValue={20}
+                       step="0.1"/>
+            </div>
+        </div>
+        {/* /.card-body */}
+    </div>
         )
     }
 }
 
-export default ListCotesForMatch;
+export default AddCoteForMatch;

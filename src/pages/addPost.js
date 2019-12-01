@@ -27,7 +27,7 @@ class AddPost extends Component {
   async submit(e){
         //annuler l'evenement onclick
         e.preventDefault();
-        this.setState({success: false})
+        this.setState({success: false});
         console.log("je submit");
         let body = {
             title: this.state.title,
@@ -72,4 +72,4 @@ class AddPost extends Component {
 
 export default AddPost;
 
-//this.props.match.params.monparam
+//this.props.matches.params.monparam

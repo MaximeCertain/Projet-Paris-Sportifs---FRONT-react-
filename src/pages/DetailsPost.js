@@ -48,4 +48,4 @@ class DetailsPost extends Component {
 
 export default DetailsPost;
 
-//this.props.match.params.monparam
+//this.props.matches.params.monparam

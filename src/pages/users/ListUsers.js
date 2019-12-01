@@ -5,8 +5,9 @@ import Post from "../../components/Post";
 import Match from "../../components/matches/Match";
 import UserServices from "../../services/users.service";
 import User from "../../components/users/User";
+import {Link} from "react-router-dom";
 
-class ListMatches extends Component {
+class ListUsers extends Component {
     constructor(props) {
         super(props);
         //base de donnée interne
@@ -41,17 +42,17 @@ class ListMatches extends Component {
 
     render() {
         return (
-            <div> {this.state.title}
+            <div> <h1>{this.state.title}</h1>
+            <Link type="submit" to={'add-user'} className="btn btn-success">Ajouter un nouvel utilisateur</Link>
+
                 {
-                    this.state.matches.length !== 0 ?
+                    this.state.users.length !== 0 ?
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Adversaire 1</th>
-                                <th>Adversaire 2</th>
-                                <th>Date rencontre</th>
-                                <th>Sport</th>
-                                <th>Résultat</th>
+                                <th>Nom/Prénom</th>
+                                <th>Capital</th>
+                                <th>Nombre de Paris</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -63,11 +64,11 @@ class ListMatches extends Component {
                             </tbody>
                         </table>
                         :
-                        <h1>Vous n'avez renseigné aucun match</h1>
+                        <h1>Vous n'avez renseigné aucun utilisateur</h1>
                 }
             </div>
         )
     }
 }
 
-export default ListMatches;
+export default ListUsers;
