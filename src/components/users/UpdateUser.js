@@ -17,22 +17,22 @@ class UpdateUser extends Component {
             msgSuccess: 'le message est enregistré avec succès'
         }
     }
-componentWillMount() {
-    let id = this.props.match.params.id;
-    let response =  UserServices.details(id);
-    if (response.ok) {
-        //La réponse est de type 200
-        let data =  response.json();
-        this.setState({
-            email: data.email,
-            id: data._id,
-            lastName: data.lastName,
-            firstName: data.firstName,
-            password: data.password,
 
-        });
+    async componentWillMount() {
+        let id = this.props.match.params.id;
+        let response = await UserServices.details(id);
+        if (response.ok) {
+            let data = await response.json();
+            //La réponse est de type 200
+            this.setState({
+                email: data.user.email,
+                id: data.user._id,
+                lastName: data.user.lastName,
+                firstName: data.user.firstName,
+                password: data.user.password
+            });
+        }
     }
-}
 
     handleChange(e) {
         this.setState({
@@ -52,16 +52,13 @@ componentWillMount() {
             user_type: "5ddfc19bf113672c480ad9f7",
         };
         console.log(body);
-        let response = await UserServices.update(body);
+        let response = await UserServices.update(this.state.id, body);
         if (response.ok) {
             this.setState({
                 success: true,
                 msgSuccess: "user modifie avec succès"
             });
             this.props.history.push('/users');
-
-            /* on retourne sur l'url precedent
-               this.props.history.push('/');*/
         }
     }
 
@@ -69,7 +66,8 @@ componentWillMount() {
         let response = await UserServices.delete(id);
         if (response.ok) {
             this.props.history.push('/users');
-        } console.log(response);
+        }
+        console.log(response);
     }
 
 
@@ -77,10 +75,11 @@ componentWillMount() {
         return (<div className="row">
                 <div className="col-md-12 card card-primary">
                     <div className="card-header">
-                        <h3 className="card-title">Modifier l' utilisateur {this.state.lastName}</h3>
-                        <button type="submit" className="btn delete" onClick={() => this.deleteUser(this.state.id)}>Supprimer</button>
+                        <h3 className="card-title">Modifier l' utilisateur {this.state.lastName} {this.state.firstName}</h3>
+                        <button type="submit" className="btn delete"
+                                onClick={() => this.deleteUser(this.state.id)}>Supprimer
+                        </button>
                     </div>
-                    {console.log(this.state.email)}
                     {/* form start */}
                     <form onSubmit={(e) => this.submit(e)}>
                         <div className="card-body">
@@ -105,7 +104,6 @@ componentWillMount() {
                                        value={this.state.firstName} onChange={(e) => this.handleChange(e)}/>
                             </div>
                         </div>
-                        {/* /.card-body */}
                         <div className="card-footer">
                             <button type="submit" className="btn btn-primary">Enregistrer</button>
                         </div>

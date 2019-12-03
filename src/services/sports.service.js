@@ -1,5 +1,5 @@
 const baseUrl = "http://127.0.0.1:3001";
-class UserServices {
+class SportsService {
     static async list() {
         let init = {
             method: "GET",
@@ -7,7 +7,7 @@ class UserServices {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/users`, init);
+        let call = await fetch(`${baseUrl}/sports`, init);
         return call;
     }
     static async details(id){
@@ -17,20 +17,7 @@ class UserServices {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/users/${id}`, init);
-        console.log(call);
-        return call;
-    }
-
-    static async checkLogin(body){
-        let init = {
-            method: "POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        };
-        let call = await fetch(`${baseUrl}/check_login`, init);
+        let call = await fetch(`${baseUrl}/sports/${id}`, init);
         return call;
     }
 
@@ -42,7 +29,7 @@ class UserServices {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/check_login`, init);
+        let call = await fetch(`${baseUrl}/sports/`, init);
         return call;
     }
     static async update(id, body){
@@ -53,7 +40,7 @@ class UserServices {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/users/${id}`, init);
+        let call = await fetch(`${baseUrl}/sports/${id}`, init);
         return call;
     }
     static async delete(id){
@@ -63,9 +50,9 @@ class UserServices {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/users/${id}`, init);
+        let call = await fetch(`${baseUrl}/sports/${id}`, init);
         return call;
     }
 }
 
-export default UserServices;
+export default SportsService;

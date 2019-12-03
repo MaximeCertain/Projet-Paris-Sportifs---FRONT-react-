@@ -10,7 +10,7 @@ class User extends Component {
     render() {
         return (
             <tr>
-                <td><Link to={`/posts/${this.props.data._id}`}>{this.props.data.lastName} {this.props.data.firstName}</Link></td>
+                <td>{this.props.data.lastName} {this.props.data.firstName}</td>
                 <td>{this.props.data.capital}</td>
                 <td>{this.props.data.bets.length}</td>
                 <td>

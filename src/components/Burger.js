@@ -62,6 +62,14 @@ class Burger extends Component {
                                                 </p>
                                             </Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link to={`/sports`} className="nav-link">
+                                                <i className="nav-icon fas fa-th"/>
+                                                <p>
+                                                    Sports
+                                                </p>
+                                            </Link>
+                                        </li>
                                         <li className="nav-header">EXAMPLES</li>
                                         <li className="nav-item">
                                             <a href="" className="nav-link">

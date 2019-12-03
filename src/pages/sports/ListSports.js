@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 import PostService from "../../services/posts.service";
-import MatchesService from "../../services/matches.service";
-import Post from "../../components/Post";
-import Match from "../../components/matches/Match";
+import SportsService from "../../services/sports.service";
 import {Link} from "react-router-dom";
 
-class ListMatches extends Component {
+class ListSports extends Component {
     constructor(props) {
         super(props);
         //base de donnée interne
         this.state = {
-            title: "Liste des matchs",
-            matches: []
+            title: "Liste des sports",
+            sports: []
         }
     }
 
@@ -26,15 +24,16 @@ class ListMatches extends Component {
     }
 
     async componentDidMount() {
-        let response = await MatchesService.list();
+        let response = await SportsService.list();
         if (response.ok) {
             //La réponse est de type 200
             let data = await response.json();
             this.setState({
-                matches: data.matchs
+                sports: data.sports
             });
         }
     }
+
     async detailsPost(id) {
         let response = await PostService.delete(id);
         if (response.ok) {
@@ -48,33 +47,33 @@ class ListMatches extends Component {
     render() {
         return (
             <div> {this.state.title}
-                <Link type="submit" to={'add-match'} className="btn btn-success">Ajouter un nouveau match</Link>
+                <Link type="submit" to={'add-sport'} className="btn btn-success">Ajouter un nouveau sport</Link>
                 {
-                    this.state.matches.length !== 0 ?
+                    this.state.sports.length !== 0 ?
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Adversaire 1</th>
-                                <th>Adversaire 2</th>
-                                <th>Date rencontre</th>
-                                <th>Sport</th>
-                                <th>Résultat</th>
+                                <th>Libellé</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            {this.state.matches.map((item, index) => {
-                                return (<Match key={index} data={item} detailsMatch={(id) => this.detailsPost(id)}/>)
+                            {this.state.sports.map((item, index) => {
+                                return (<tr>
+                                    <td>{item.label}</td>
+                                    <td>  <Link className="btn btn-primary" to={`/update-sport/${item._id}`} >
+                                        <i className="fas fa-football-ball" />Voir/Modifier</Link></td>
+                                </tr>)
                             })
                             }
                             </tbody>
                         </table>
                         :
-                        <h1>Vous n'avez renseigné aucun match</h1>
+                        <h1>Vous n'avez renseigné aucun sport</h1>
                 }
             </div>
         )
     }
 }
 
-export default ListMatches;
+export default ListSports;

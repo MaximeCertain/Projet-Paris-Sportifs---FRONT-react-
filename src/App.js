@@ -14,25 +14,47 @@ import DetailsMatch from "./pages/matches/DetailsMatch";
 import ListUsers from "./pages/users/ListUsers";
 import FormUser from "./components/users/FormUser";
 import UpdateUser from "./components/users/UpdateUser";
+import PageNotFound from "./components/404";
+import Login from "./components/Login";
+import ListSports from "./pages/sports/ListSports";
+import UpdateSport from "./pages/sports/UpdateSport";
+import AddSport from "./pages/sports/AddSport";
+import AddMatch from "./pages/matches/AddMatch";
 
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Header/>
-                <Burger/>
-                <div className="content-wrapper" style={{minHeight: 216}}>
-                    <Route path="/matches" exact component={ListMatches}/>
-                    <Route path="/matches/:id" exact component={DetailsMatch}/>
-                    <Route path="/users" exact component={ListUsers}/>
-                    <Route path="/add-user" exact component={FormUser}/>
-                    <Route path="/update-user/:id" exact component={UpdateUser}/>
+                {localStorage.getItem('idUser') ?
+                    <div>
+                        {localStorage.getItem('role') === "ROLE_SUPER_ADMIN" ?
+                        <div>
+                            <Header/>
+                            <Burger/>
+                            <div className="content-wrapper" style={{minHeight: 216}}>
+                                <Route path="/matches" exact component={ListMatches}/>
+                                <Route path="/matches/:id" exact component={DetailsMatch}/>
+                                <Route path="/users" exact component={ListUsers}/>
+                                <Route path="/add-user" exact component={FormUser}/>
+                                <Route path="/update-user/:id" exact component={UpdateUser}/>
+                                <Route path="/page-not-found" exact component={PageNotFound}/>
+                                <Route path="/sports" exact component={ListSports}/>
+                                <Route path="/update-sport/:id" exact component={UpdateSport}/>
+                                <Route path="/add-sport" exact component={AddSport}/>
+                                <Route path="/add-match" exact component={AddMatch}/>
 
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/posts/:id" exact component={DetailsPost}/>
-                    <Route path="/ajouter-un-post" exact component={AddPost}/>
-                </div>
-                <Footer/>
+                                <Route path="/" exact component={Home}/>
+                                <Route path="/posts/:id" exact component={DetailsPost}/>
+                                <Route path="/ajouter-un-post" exact component={AddPost}/>
+                            </div>
+                            <Footer/>
+                        </div> :
+                            <Route path="/" exact component={Home}/>
+                        }
+                    </div> :
+                    <Route path="/login" exact component={Login}/>
+                }
+                <Route path="*" exact component={PageNotFound}/>
             </BrowserRouter>
         );
     }

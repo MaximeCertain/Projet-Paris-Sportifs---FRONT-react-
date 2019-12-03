@@ -11,14 +11,13 @@ class DetailsMatch extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            matchs: {}
+            matchs: {},
+            id:'',
+            cotes: []
         }
     }
-    componentWillMount() {
-        console.log("will");
-    }
-
-    async componentDidMount() {
+  async  componentWillMount() {
+        console.log("parent");
         let id = this.props.match.params.id;
         let response = await MatchesService.details(id);
         if (response.ok) {
@@ -26,9 +25,14 @@ class DetailsMatch extends Component {
             let data = await response.json();
             this.setState({
                 matchs: data.matchs,
+                id: id,
+                cotes : data.matchs.cotes
             });
-            console.log(data.matchs);
         }
+        console.log("will");
+    }
+
+    async componentDidMount() {
     }
 
 /*
@@ -45,16 +49,15 @@ class DetailsMatch extends Component {
             <section className="content">
                 <div className="row">
                     <div className="col-md-6">
-
-                        <FormMatch data={this.state.matchs}/>
+                        <FormMatch data={this.state.matchs}  />
                     </div>
                     <div className="col-md-6">
                         <div className="row">
                             <div className="col-md-12">
-                                <ListCotesForMatch data={this.state.matchs}/>
+                                <ListCotesForMatch data={this.state.cotes} />
                             </div>
                             <div className="col-md-12">
-                                <AddCoteForMatch data={this.state.matchs}/>
+                                <AddCoteForMatch data={this.state.matchs} idMatch={this.props.match.params.id}/>
                             </div>
                         </div>
                     </div>
