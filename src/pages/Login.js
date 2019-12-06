@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import UserServices from "../services/users.service";
+import ErrorFormMessage from "../components/form/ErrorFormMessage";
 
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.state ={
+            message: '',
+            errorTitle: ''
+        }
     }
 
     handleChange(e) {
@@ -14,6 +19,10 @@ class Login extends Component {
     }
 
     async submit(e) {
+        this.setState({
+            errorTitle: '',
+            message: '',
+        });
         //annuler l'evenement onclick
         e.preventDefault();
         let body = {
@@ -23,23 +32,23 @@ class Login extends Component {
         let response = await UserServices.checkLogin(body);
         if (response.ok) {
             let data = await response.json();
-            if(data.user !== null){
+            if (data.user !== null) {
                 localStorage.setItem('idUser', data.user._id);
                 localStorage.setItem('email', data.user.email);
                 localStorage.setItem('role', data.user.user_type.label);
-                if(data.user.user_type.label === "ROLE_USER"){
+                if (data.user.user_type.label === "ROLE_USER") {
                     window.location.replace("/");
-                }else{
+                } else {
                     window.location.replace("/matches");
                 }
                 //local storage clear ou remove item
-            }else{
-                console.log("echec de connexion");
+            } else {
+                this.setState({
+                    errorTitle: 'Echec de connexion',
+                    message: 'Cette combinaison est fausse, veuillez rééssayer',
+                });
             }
-            this.setState({
-                success: true,
-                msgSuccess: "utilisateur connecté"
-            });
+
         }
     }
 
@@ -62,6 +71,10 @@ class Login extends Component {
                     <div className="card-body login-card-body">
                         <p className="login-box-msg">Sign in to start your session</p>
                         <form onSubmit={(e) => this.submit(e)}>
+
+                            {this.state.message !== '' &&
+                            <ErrorFormMessage title={this.state.errorTitle} message={this.state.message}/>
+                            }
                             <div className="input-group mb-3">
                                 <input type="email" className="form-control" id="email"
                                        onChange={(e) => this.handleChange(e)}/>
