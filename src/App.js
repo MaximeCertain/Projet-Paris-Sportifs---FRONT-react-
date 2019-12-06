@@ -61,7 +61,7 @@ class App extends Component {
                         </div>
                         <Footer/>
                     </div> :
-                    <div>
+                    <div className="bg-img">
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
                     </div>

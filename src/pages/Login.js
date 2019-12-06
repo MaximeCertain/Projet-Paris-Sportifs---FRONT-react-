@@ -16,8 +16,6 @@ class Login extends Component {
     async submit(e) {
         //annuler l'evenement onclick
         e.preventDefault();
-        this.setState({success: false});
-        console.log("je submit");
         let body = {
             email: this.state.email,
             password: this.state.password

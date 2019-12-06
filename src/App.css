@@ -5,6 +5,10 @@
 .App-logo {
   height: 40vmin;
 }
+.bg-img{
+  background: url('https://s1.qwant.com/thumbr/0x380/2/1/826ec693628f43b453bac6315ee73a9adee56d46a7699e2e8da126ac326894/M3jIgJ7.jpg?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FM3jIgJ7.jpg&amp;q=0&amp;b=1&amp;p=0&amp;a=1');
+  background-size: 100% 100%;
+}
 
 .App-header {
   background-color: #282c34;
