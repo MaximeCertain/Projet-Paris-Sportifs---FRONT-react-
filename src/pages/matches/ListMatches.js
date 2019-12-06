@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../../services/posts.service";
 import MatchesService from "../../services/matches.service";
 import Post from "../../components/Post";
 import Match from "../../components/matches/Match";
@@ -15,16 +14,6 @@ class ListMatches extends Component {
         }
     }
 
-
-    componentWillMount() {
-        console.log("will");
-    }
-
-
-    onClickButton() {
-        console.log("je clique");
-    }
-
     async componentDidMount() {
         let response = await MatchesService.list();
         if (response.ok) {
@@ -34,20 +23,13 @@ class ListMatches extends Component {
                 matches: data.matchs
             });
         }
-    }
-    async detailsPost(id) {
-        let response = await PostService.delete(id);
-        if (response.ok) {
-            let posts = this.state.posts;
-            let index = posts.findIndex(post => post.id === id);
-            posts.splice(index, 1);
-            this.setState({posts: posts});
-        }
+        console.log(this.props.data);
     }
 
     render() {
         return (
-            <div> {this.state.title}
+            <div>
+                <h1> {this.state.title}</h1>
                 <Link type="submit" to={'add-match'} className="btn btn-success">Ajouter un nouveau match</Link>
                 {
                     this.state.matches.length !== 0 ?
@@ -59,18 +41,19 @@ class ListMatches extends Component {
                                 <th>Date rencontre</th>
                                 <th>Sport</th>
                                 <th>Résultat</th>
+                                <th>Cotes remplies</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             {this.state.matches.map((item, index) => {
-                                return (<Match key={index} data={item} detailsMatch={(id) => this.detailsPost(id)}/>)
+                                return (<Match key={index} data={item} />)
                             })
                             }
                             </tbody>
                         </table>
                         :
-                        <h1>Vous n'avez renseigné aucun match</h1>
+                        <span/>
                 }
             </div>
         )

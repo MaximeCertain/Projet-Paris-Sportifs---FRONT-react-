@@ -1,6 +1,6 @@
 const baseUrl = "http://127.0.0.1:3001";
 
-class CotesService {
+class AccountActionsService {
     /**
      * @returns {Promise<Response>}
      */
@@ -11,7 +11,7 @@ class CotesService {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/cotes`, init);
+        let call = await fetch(`${baseUrl}/account_actions`, init);
         return call;
     }
 
@@ -26,7 +26,7 @@ class CotesService {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/cotes/${id}`, init);
+        let call = await fetch(`${baseUrl}/account_actions/${id}`, init);
         return call;
     }
 
@@ -43,7 +43,8 @@ class CotesService {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/matchs/${id}/cotes`, init);
+
+        let call = await fetch(`${baseUrl}/users/${id}/account_actions`, init);
         return call;
     }
 
@@ -60,7 +61,7 @@ class CotesService {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/cotes/${id}`, init);
+        let call = await fetch(`${baseUrl}/account_actions/${id}`, init);
         return call;
     }
 
@@ -75,9 +76,9 @@ class CotesService {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/cotes/${id}`, init);
+        let call = await fetch(`${baseUrl}/account_actions/${id}`, init);
         return call;
     }
 }
 
-export default CotesService;
+export default AccountActionsService;

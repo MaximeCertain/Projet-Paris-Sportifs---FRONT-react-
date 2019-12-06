@@ -1,5 +1,8 @@
 const baseUrl = "http://127.0.0.1:3001";
 class SportsService {
+    /**
+     * @returns {Promise<Response>}
+     */
     static async list() {
         let init = {
             method: "GET",
@@ -10,6 +13,11 @@ class SportsService {
         let call = await fetch(`${baseUrl}/sports`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async details(id){
         let init = {
             method: "GET",
@@ -21,6 +29,10 @@ class SportsService {
         return call;
     }
 
+    /**
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async create(body){
         let init = {
             method: "POST",
@@ -32,6 +44,12 @@ class SportsService {
         let call = await fetch(`${baseUrl}/sports/`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async update(id, body){
         let init = {
             method: "PUT",
@@ -43,6 +61,11 @@ class SportsService {
         let call = await fetch(`${baseUrl}/sports/${id}`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async delete(id){
         let init = {
             method: "DELETE",

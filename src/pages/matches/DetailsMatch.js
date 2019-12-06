@@ -4,20 +4,22 @@ import Match from "../../components/matches/Match";
 import FormMatch from "../../components/matches/FormMatch";
 import ListCotesForMatch from "../../components/cotes/ListCotesForMatch";
 import AddCoteForMatch from "../../components/cotes/AddCoteForMatch";
-import PostService from "../../services/posts.service";
 import MatchesService from "../../services/matches.service";
+import SetResultToMatch from "../../components/matches/SetResultToMatch";
+import update from 'immutability-helper';
 
 class DetailsMatch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             matchs: {},
-            id:'',
+            id: '',
             cotes: []
         }
+
     }
-  async  componentWillMount() {
-        console.log("parent");
+
+    async componentWillMount() {
         let id = this.props.match.params.id;
         let response = await MatchesService.details(id);
         if (response.ok) {
@@ -26,38 +28,55 @@ class DetailsMatch extends Component {
             this.setState({
                 matchs: data.matchs,
                 id: id,
-                cotes : data.matchs.cotes
+                cotes: data.matchs.cotes
             });
         }
-        console.log("will");
     }
 
     async componentDidMount() {
     }
 
-/*
-    async deletePost(id) {
-        let response = await MatchService.delete(id);
-        console.log("Here");
-        if (response.ok) {
-            this.props.history.push("/");
-        }
+  async updateLineAfterUpdateParent(index, newCote){
+      let updatedCote = await (this.state.cotes[index]);
+      let newArray = update(this.state.cotes, {
+          [index]: {
+              cote: {$set: newCote}
+          }
+      });
+      this.setState({cotes: newArray})
+
     }
-*/
+    async addCoteToCotesArray(cote) {
+        this.setState( {
+            cotes: this.state.cotes.concat(cote)
+        })
+    }
+
     render() {
         return (
+
             <section className="content">
                 <div className="row">
                     <div className="col-md-6">
-                        <FormMatch data={this.state.matchs}  />
+                        <div className="row">
+                            <div className="col-md-12">
+                                <FormMatch  data={this.state.matchs}/>
+                            </div>
+                            <div className="col-md-12">
+                                {this.state.matchs.result === '' &&
+                                    <SetResultToMatch idMatch={this.props.match.params.id}/>
+                                }
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-6">
                         <div className="row">
                             <div className="col-md-12">
-                                <ListCotesForMatch data={this.state.cotes} />
+                                <ListCotesForMatch data={this.state.cotes} updateLineAfterUpdateParent={(index, newCote) => this.updateLineAfterUpdateParent(index, newCote)}/>
                             </div>
                             <div className="col-md-12">
-                                <AddCoteForMatch data={this.state.matchs} idMatch={this.props.match.params.id}/>
+                                <AddCoteForMatch data={this.state.matchs} idMatch={this.props.match.params.id}
+                                                 addCoteToCotesArray={(cote) => this.addCoteToCotesArray(cote)}/>
                             </div>
                         </div>
                     </div>

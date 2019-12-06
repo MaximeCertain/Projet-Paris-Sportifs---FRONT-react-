@@ -1,5 +1,8 @@
 const baseUrl = "http://127.0.0.1:3001";
 class CotesTypesService {
+    /**
+     * @returns {Promise<Response>}
+     */
     static async list() {
         let init = {
             method: "GET",
@@ -10,6 +13,11 @@ class CotesTypesService {
         let call = await fetch(`${baseUrl}/cotes_types`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async details(id){
         let init = {
             method: "GET",
@@ -21,6 +29,10 @@ class CotesTypesService {
         return call;
     }
 
+    /**
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async create(body){
         let init = {
             method: "POST",
@@ -32,6 +44,12 @@ class CotesTypesService {
         let call = await fetch(`${baseUrl}/cotes_types/`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async update(id, body){
         let init = {
             method: "PUT",
@@ -43,6 +61,11 @@ class CotesTypesService {
         let call = await fetch(`${baseUrl}/cotes_types/${id}`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async delete(id){
         let init = {
             method: "DELETE",

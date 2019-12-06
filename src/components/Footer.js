@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../services/posts.service";
 import {Link} from "react-router-dom";
 
 

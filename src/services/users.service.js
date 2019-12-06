@@ -1,5 +1,8 @@
 const baseUrl = "http://127.0.0.1:3001";
 class UserServices {
+    /**
+     * @returns {Promise<Response>}
+     */
     static async list() {
         let init = {
             method: "GET",
@@ -10,6 +13,11 @@ class UserServices {
         let call = await fetch(`${baseUrl}/users`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async details(id){
         let init = {
             method: "GET",
@@ -18,10 +26,13 @@ class UserServices {
             }
         };
         let call = await fetch(`${baseUrl}/users/${id}`, init);
-        console.log(call);
         return call;
     }
 
+    /**
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async checkLogin(body){
         let init = {
             method: "POST",
@@ -34,6 +45,10 @@ class UserServices {
         return call;
     }
 
+    /**
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async create(body){
         let init = {
             method: "POST",
@@ -42,9 +57,15 @@ class UserServices {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/check_login`, init);
+        let call = await fetch(`${baseUrl}/users`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async update(id, body){
         let init = {
             method: "PUT",
@@ -56,6 +77,11 @@ class UserServices {
         let call = await fetch(`${baseUrl}/users/${id}`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async delete(id){
         let init = {
             method: "DELETE",

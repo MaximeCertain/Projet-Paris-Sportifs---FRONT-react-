@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import PostService from "../../services/posts.service";
 import UserServices from "../../services/users.service";
-import MatchesService from "../../services/matches.service";
 
 class UpdateUser extends Component {
     constructor(props) {
@@ -13,6 +10,7 @@ class UpdateUser extends Component {
             lastName: '',
             firstName: '',
             password: '',
+            user_type: '',
             success: false,
             msgSuccess: 'le message est enregistré avec succès'
         }
@@ -29,7 +27,8 @@ class UpdateUser extends Component {
                 id: data.user._id,
                 lastName: data.user.lastName,
                 firstName: data.user.firstName,
-                password: data.user.password
+                password: data.user.password,
+                role: data.user.user_type.label
             });
         }
     }
@@ -48,10 +47,9 @@ class UpdateUser extends Component {
             email: this.state.email,
             password: this.state.password,
             lastName: this.state.lastName,
-            firstName: this.state.firstName,
-            user_type: "5ddfc19bf113672c480ad9f7",
+            firstName: this.state.firstName
         };
-        console.log(body);
+
         let response = await UserServices.update(this.state.id, body);
         if (response.ok) {
             this.setState({
@@ -67,7 +65,6 @@ class UpdateUser extends Component {
         if (response.ok) {
             this.props.history.push('/users');
         }
-        console.log(response);
     }
 
 
@@ -75,10 +72,13 @@ class UpdateUser extends Component {
         return (<div className="row">
                 <div className="col-md-12 card card-primary">
                     <div className="card-header">
-                        <h3 className="card-title">Modifier l' utilisateur {this.state.lastName} {this.state.firstName}</h3>
-                        <button type="submit" className="btn delete"
-                                onClick={() => this.deleteUser(this.state.id)}>Supprimer
-                        </button>
+                        <h3 className="card-title">Modifier l'utilisateur {this.state.lastName} {this.state.firstName}</h3>
+                        {
+                            this.state.role === "ROLE_USER" &&
+                            <button type="submit" className="btn delete"
+                                    onClick={() => this.deleteUser(this.state.id)}>Supprimer
+                            </button>
+                        }
                     </div>
                     {/* form start */}
                     <form onSubmit={(e) => this.submit(e)}>

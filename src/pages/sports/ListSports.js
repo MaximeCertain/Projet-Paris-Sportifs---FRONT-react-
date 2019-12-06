@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../../services/posts.service";
 import SportsService from "../../services/sports.service";
 import {Link} from "react-router-dom";
 
@@ -13,16 +12,6 @@ class ListSports extends Component {
         }
     }
 
-
-    componentWillMount() {
-        console.log("will");
-    }
-
-
-    onClickButton() {
-        console.log("je clique");
-    }
-
     async componentDidMount() {
         let response = await SportsService.list();
         if (response.ok) {
@@ -34,19 +23,10 @@ class ListSports extends Component {
         }
     }
 
-    async detailsPost(id) {
-        let response = await PostService.delete(id);
-        if (response.ok) {
-            let posts = this.state.posts;
-            let index = posts.findIndex(post => post.id === id);
-            posts.splice(index, 1);
-            this.setState({posts: posts});
-        }
-    }
-
     render() {
         return (
-            <div> {this.state.title}
+            <div>
+                <h1>{this.state.title}</h1>
                 <Link type="submit" to={'add-sport'} className="btn btn-success">Ajouter un nouveau sport</Link>
                 {
                     this.state.sports.length !== 0 ?
@@ -61,8 +41,8 @@ class ListSports extends Component {
                             {this.state.sports.map((item, index) => {
                                 return (<tr>
                                     <td>{item.label}</td>
-                                    <td>  <Link className="btn btn-primary" to={`/update-sport/${item._id}`} >
-                                        <i className="fas fa-football-ball" />Voir/Modifier</Link></td>
+                                    <td><Link className="btn btn-primary" to={`/update-sport/${item._id}`}>
+                                        <i className="fas fa-football-ball"/>Voir/Modifier</Link></td>
                                 </tr>)
                             })
                             }

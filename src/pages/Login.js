@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../services/posts.service";
 import {Link} from "react-router-dom";
 import UserServices from "../services/users.service";
 
@@ -30,30 +29,38 @@ class Login extends Component {
                 localStorage.setItem('idUser', data.user._id);
                 localStorage.setItem('email', data.user.email);
                 localStorage.setItem('role', data.user.user_type.label);
-                window.location.replace("/matches");
+                if(data.user.user_type.label === "ROLE_USER"){
+                    window.location.replace("/");
+                }else{
+                    window.location.replace("/matches");
+                }
                 //local storage clear ou remove item
             }else{
-                console.log("echec");
+                console.log("echec de connexion");
             }
             this.setState({
                 success: true,
                 msgSuccess: "utilisateur connecté"
             });
-            /* on retourne sur l'url precedent
-               this.props.history.push('/');*/
         }
-        console.log(response);
-
     }
 
     render() {
         return (
-            <div className="login-box">
-                <div className="login-logo">
-                    <a href=""><b>Admin</b>LTE</a>
+            <div className="login-box row" style={{
+                textAlign: 'center',
+                position: 'absolute', /*! top: '50%', */
+                left: '50%',
+                transform: 'translate(-50%)'
+            }}>
+                <div className="card-body register-card-body">
+                    <img src="https://image.flaticon.com/icons/svg/1809/1809121.svg" alt="AdminLTE Logo"
+                         className="brand-image img-circle elevation-3 img-md"
+                         style={{opacity: '.8'}}/>
+                    <h1 className="brand-text font-weight-light">Se connecter</h1>
                 </div>
                 {/* /.login-logo */}
-                <div className="card">
+                <div className="card col-md-12">
                     <div className="card-body login-card-body">
                         <p className="login-box-msg">Sign in to start your session</p>
                         <form onSubmit={(e) => this.submit(e)}>
@@ -78,13 +85,13 @@ class Login extends Component {
                             <div className="row">
                                 <div className="col-8">
                                 </div>
-                                <div className="col-4">
-                                    <button type="submit" className="btn btn-primary btn-block">Sign In</button>
+                                <div className="col-6">
+                                    <button type="submit" className="btn btn-primary btn-block">Se connecter</button>
                                 </div>
                             </div>
                         </form>
                         <p className="mb-0">
-                            <a href="" className="text-center">S'inscrire</a>
+                            <Link to={"/register"} className="text-center">S'inscrire</Link>
                         </p>
                     </div>
                 </div>

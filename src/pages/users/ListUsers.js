@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../../services/posts.service";
-import MatchesService from "../../services/matches.service";
-import Post from "../../components/Post";
-import Match from "../../components/matches/Match";
 import UserServices from "../../services/users.service";
 import User from "../../components/users/User";
 import {Link} from "react-router-dom";
@@ -33,6 +29,7 @@ class ListUsers extends Component {
         if (response.ok) {
             //La réponse est de type 200
             let data = await response.json();
+
             this.setState({
                 users: data.users
             });

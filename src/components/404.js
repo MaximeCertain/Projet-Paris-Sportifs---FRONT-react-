@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PostService from "../services/posts.service";
 import {Link} from "react-router-dom";
 
 class PageNotFound extends Component {
@@ -39,8 +38,7 @@ class PageNotFound extends Component {
                             <form className="search-form">
                                 <div className="input-group">
                                     <div className="input-group-append">
-                                        <Link to={"/login"} className="btn btn-warning"><i className="fas fa-search" />Retour connexion
-                                        </Link>
+
                                     </div>
                                 </div>
                                 {/* /.input-group */}

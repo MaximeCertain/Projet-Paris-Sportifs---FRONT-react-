@@ -21,7 +21,8 @@ class AddMatch extends Component {
            //La réponse est de type 200
            let data = await response.json();
            this.setState({
-               sports: data.sports
+               sports: data.sports,
+               sport:data.sports[0]._id
            });
        }
     }
@@ -41,13 +42,9 @@ class AddMatch extends Component {
             date: this.state.date,
             sport: this.state.sport
 
-        }; console.log(body);
+        };
         let response  = await MatchesService.create(body);
         if (response.ok){
-            this.setState({
-                success: true,
-                msgSuccess: "match cree succès"
-            });
             this.props.history.replace('/matches');
         }
     }
@@ -55,7 +52,7 @@ class AddMatch extends Component {
         return (
             <div className="container">
                 <form onSubmit={(e) => this.submit(e)}>
-                    <h1>Ajouter un sport</h1>
+                    <h1>Ajouter un nouveau match</h1>
                     <div className="form-group">
                         <label>Adversaire 1</label>
                         <input className="form-control" required id="adversaire1" type="text" value={this.state.adversaire1}
@@ -69,7 +66,7 @@ class AddMatch extends Component {
                     <div className="form-group">
                         <label>Date</label>
                         <input className="form-control" required id="date" type="date"
-                               onChange={(e) => this.handleChange(e)}/>
+                               onChange={(e) => this.handleChange(e)} value={this.state.date}/>
                     </div>
                     <div className="form-group">
                         <label>Sport</label>
@@ -77,7 +74,7 @@ class AddMatch extends Component {
                                 onChange={(e) => this.handleChange(e)}>
                             {
                                 this.state.sports.map(item => {
-                                    return <option value={item._id}>{item.label}</option>
+                                    return <option value={item._id} selected={item._id === this.state.sport}>{item.label}</option>
                                 })
                             }
                         </select>

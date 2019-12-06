@@ -1,16 +1,23 @@
-const baseUrl = "https://jsonplaceholder.typicode.com";
-class PostService {
-    static async list(){
+const baseUrl = "http://127.0.0.1:3001";
+class UserTypeService {
+    /**
+     * @returns {Promise<Response>}
+     */
+    static async list() {
         let init = {
             method: "GET",
-            headers:{
+            headers: {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/posts`, init);
+        let call = await fetch(`${baseUrl}/users_types`, init);
         return call;
     }
 
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async details(id){
         let init = {
             method: "GET",
@@ -18,10 +25,14 @@ class PostService {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/posts/${id}`, init);
+        let call = await fetch(`${baseUrl}/users_types/${id}`, init);
         return call;
     }
 
+    /**
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async create(body){
         let init = {
             method: "POST",
@@ -30,9 +41,15 @@ class PostService {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/posts/`, init);
+        let call = await fetch(`${baseUrl}/users_types`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @param body
+     * @returns {Promise<Response>}
+     */
     static async update(id, body){
         let init = {
             method: "PUT",
@@ -41,9 +58,14 @@ class PostService {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`${baseUrl}/posts/${id}`, init);
+        let call = await fetch(`${baseUrl}/users_types/${id}`, init);
         return call;
     }
+
+    /**
+     * @param id
+     * @returns {Promise<Response>}
+     */
     static async delete(id){
         let init = {
             method: "DELETE",
@@ -51,8 +73,9 @@ class PostService {
                 "Content-Type": "application/json"
             }
         };
-        let call = await fetch(`${baseUrl}/posts/${id}`, init);
+        let call = await fetch(`${baseUrl}/users_types/${id}`, init);
         return call;
     }
 }
-export default PostService;
+
+export default UserTypeService;
